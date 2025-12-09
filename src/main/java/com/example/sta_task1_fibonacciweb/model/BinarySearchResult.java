@@ -7,7 +7,7 @@ public class BinarySearchResult {
     private List<String> executionPath;
     private List<Integer> midValues;
     private String pathType;
-
+//sdsdsd
     public BinarySearchResult(int result, List<String> executionPath, List<Integer> midValues, String pathType) {
         this.result = result;
         this.executionPath = executionPath;
