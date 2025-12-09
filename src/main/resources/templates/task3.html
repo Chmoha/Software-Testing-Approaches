@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Task 3</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}">Task : 7</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>Quadratic Equation Solver (with accuracy)</h2><br>
+
+        <div th:if="${error}" class="error" style="color: #ba3b3b; margin-top: 15px;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form th:action="@{/task3/solve}" method="post">
+            <label>a:
+                <input type="number" name="a" th:value="${a}" required min="-1000000000" max="1000000000" step="any">
+            </label><br><br>
+
+            <label>b:
+                <input type="number" name="b" th:value="${b}" required min="-1000000000" max="1000000000" step="any">
+            </label><br><br>
+
+            <label>c:
+                <input type="number" name="c" th:value="${c}" required min="-1000000000" max="1000000000" step="any">
+            </label><br><br>
+
+            <label>Accuracy (1 - 10): <br>
+                <input type="number" name="accuracy" min="1" max="10" th:value="${accuracy}" required>
+            </label><br><br>
+
+            <button type="submit">Solve</button>
+        </form>
+
+        <form th:action="@{/task3/random}" method="post">
+            <input type="hidden" name="accuracy" th:value="${accuracy}"/>
+            <button class="random" type="submit">Random</button>
+        </form>
+
+        <div th:if="${result != null}" class="result" style="margin-top: 20px;">
+            <p><strong>D:</strong>
+                <span th:text="${#maps.containsKey(result, 'discriminant') ? result['discriminant'] : '—'}">—</span>
+            </p>
+            <p><strong>Status:</strong>
+                <span th:text="${#maps.containsKey(result, 'status') ? result['status'] : '—'}">—</span>
+            </p>
+            <p th:if="${#maps.containsKey(result, 'x1')}">x1 = <span th:text="${result['x1']}"></span></p>
+            <p th:if="${#maps.containsKey(result, 'x2')}">x2 = <span th:text="${result['x2']}"></span></p>
+            <p th:if="${#maps.containsKey(result, 'x')}">x = <span th:text="${result['x']}"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

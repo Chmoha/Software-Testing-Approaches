@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Task 6</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}">Task : 7</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <!-- ======= SUM OF POSITIVE ELEMENTS ======= -->
+    <div class="card">
+        <h2>Sum of Positive Elements (FOR Loop)</h2><br>
+        <form method="post" action="/task6/sum">
+            <label>Enter array (comma-separated):</label>
+            <input type="text" name="arrayInput" placeholder="e.g. 1,8,2,-3,10,9,-20,-100,0,3,4"
+                   th:value="${arrayInput != null} ? ${arrayInput} : '1,8,2,-3,10,9,-20,-100,0,3,4'">
+            <label>Enter iteration limit (i):</label>
+            <input type="number" name="iteration" placeholder="e.g. 5" min="1" max="20" required
+                   th:value="${iteration != null} ? ${iteration} : ''">
+            <button type="submit">Calculate Sum</button>
+        </form>
+
+        <!-- Ошибка для sum -->
+        <div th:if="${sumError != null}" class="error-box">
+            <p th:text="${sumError}"></p>
+        </div>
+
+        <!-- Результат для sum -->
+        <div th:if="${sumResult != null}" class="previous">
+            <h3>Result:</h3>
+            <p th:utext="${sumResult}"></p>
+        </div>
+    </div>
+
+    <!-- ======= BINARY SEARCH ======= -->
+    <div class="card">
+        <h2>Binary Search (WHILE Loop)</h2><br>
+        <form method="post" action="/task6/search">
+            <label>Enter array (comma-separated):</label>
+            <input type="text" name="arrayInput" placeholder="e.g. 1,8,2,-3,10,9,-20,-100,0,3,4"
+                   th:value="${arrayInput != null} ? ${arrayInput} : '1,8,2,-3,10,9,-20,-100,0,3,4'">
+            <label>Enter key to search:</label>
+            <input type="number" name="key" placeholder="e.g. 10" required
+                   th:value="${key != null} ? ${key} : ''">
+            <label>Enter iteration limit (i):</label>
+            <input type="number" name="iteration" placeholder="e.g. 5" min="1" max="20" required
+                   th:value="${iteration != null} ? ${iteration} : ''">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Ошибка для search -->
+        <div th:if="${searchError != null}" class="error-box">
+            <p th:text="${searchError}"></p>
+        </div>
+
+        <!-- Результат для search -->
+        <div th:if="${searchResult != null}" class="previous">
+            <h3>Result:</h3>
+            <p th:utext="${searchResult}"></p>
+        </div>
+    </div>
+
+    <!-- ======= BUBBLE SORT ======= -->
+    <div class="card">
+        <h2>Bubble Sort (Iterative)</h2><br>
+        <form method="post" action="/task6/sort">
+            <label>Enter array (comma-separated):</label>
+            <input type="text" name="arrayInput" placeholder="e.g. 1,8,2,-3,10,9,-20,-100,0,3,4"
+                   th:value="${arrayInput != null} ? ${arrayInput} : '1,8,2,-3,10,9,-20,-100,0,3,4'">
+            <div style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                <div style="flex: 1;">
+                    <label>Outer limit:</label>
+                    <input type="number" name="outerLimit" placeholder="e.g. 5" min="0" max="20" required
+                           th:value="${outerLimit != null} ? ${outerLimit} : ''">
+                </div>
+                <div style="flex: 1;">
+                    <label>Inner limit:</label>
+                    <input type="number" name="innerLimit" placeholder="e.g. 5" min="0" max="20" required
+                           th:value="${innerLimit != null} ? ${innerLimit} : ''">
+                </div>
+            </div>
+            <button type="submit">Sort Array</button>
+        </form>
+
+        <!-- Ошибка для sort -->
+        <div th:if="${sortError != null}" class="error-box">
+            <p th:text="${sortError}"></p>
+        </div>
+
+        <!-- Результат для sort -->
+        <div th:if="${sortResult != null}" class="previous">
+            <h3>Result:</h3>
+            <p th:utext="${sortResult}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

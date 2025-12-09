@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Task 2</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}">Task : 7</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>Fibonacci Calculator</h2>
+        <form th:action="@{/task2/calc}" method="post">
+            <label for="n">Enter n:</label>
+            <input type="number" id="n" name="n" min="0" max="100" th:value="${n}" required />
+            <button type="submit">Calculate</button>
+        </form>
+
+        <div th:if="${result}" class="result">
+            <p><strong>F(<span th:text="${n}"></span>) =</strong> <span th:text="${result}"></span></p>
+            <div class="previous">
+                <p th:if="${prev1 != null}">
+                    <em>F(<span th:text="${n-1}"></span>) =</em> <span th:text="${prev1}"></span>
+                </p>
+                <p th:if="${prev2 != null}">
+                    <em>F(<span th:text="${n-2}"></span>) =</em> <span th:text="${prev2}"></span>
+                </p>
+            </div>
+        </div>
+
+        <div th:if="${error}" class="error">
+            <p><strong>Error:</strong> <span th:text="${error}"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

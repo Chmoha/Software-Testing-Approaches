@@ -1,0 +1,342 @@
+/* Общая обёртка / контейнер */
+body {
+    font-family: Arial, sans-serif;
+    background: #ece5e2;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* убираем двойную прокрутку */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #a34f3f;
+    color: #fff;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+/* ... (оставляем остальные стили sidebar без изменений) ... */
+
+.sidebar h3 {
+    margin-top: 0;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.sidebar ul li a:hover {
+    color: #fbddbb;
+}
+
+/* Основная часть справа */
+.content {
+    margin-left: 240px; /* отступ для sidebar */
+    padding: 24px;
+    width: calc(100% - 240px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 25px; /* расстояние между карточками */
+    overflow-y: auto; /* прокрутка при большом количестве карточек */
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Карточка */
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;           /* занимать всю доступную ширину контейнера */
+    max-width: 980px;      /* ограничение максимальной ширины (можно подстроить) */
+    margin: 0 auto;        /* центрировать карточку при больших экранах */
+    box-sizing: border-box;
+}
+
+.card.narrow-card {
+    max-width: 420px;
+}
+/* Заголовки */
+.card h2 {
+    color: #a34f3f;
+    margin: 0 0 12px 0;
+}
+
+/* Кнопки */
+button {
+    background: #e66e40;
+    color: #fdf5ec;
+    border: none;
+    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background: #cd5d34;
+    color: #fdf5ec;
+}
+
+/* Поля ввода (по умолчанию) */
+input[type="text"],
+input[type="number"],
+input[type="search"] {
+    background: #fdf8f3;
+    border: 1px solid #ffedd7;
+    border-radius: 5px;
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px auto;
+    color: #a34f3f;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+/* Небольшая утончённость: формы внутри карточек */
+.card form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Контейнер для таблицы матрицы: делает таблицу прокручиваемой */
+.table-wrapper {
+    width: 100%;
+    overflow: auto;            /* горизонтальная/вертикальная прокрутка при необходимости */
+    max-height: 60vh;          /* не даём таблице вылезать за высоту экрана */
+    padding: 8px 0;
+    box-sizing: border-box;
+}
+
+/* Таблица матрицы: равномерное деление колонок */
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* важно — равномерное распределение ширины колонок */
+}
+
+/* Ячейки таблицы */
+.table-wrapper td,
+.table-wrapper th {
+    border: 1px solid #eee;
+    padding: 6px;
+    text-align: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+/* Инпуты внутри ячеек таблицы — занимают всю ячейку */
+.table-wrapper td input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    font-size: 14px;
+    text-align: center;
+    background: #fbf9f7;
+    border: 1px solid #f0e9e3;
+    border-radius: 4px;
+    color: #a34f3f;
+    font-weight: 600;
+}
+
+/* Подписи/результаты */
+.previous {
+    margin-top: 12px;
+    font-size: 14px;
+    color: rgb(230, 110, 64);
+    text-align: left;
+}
+
+/* Мобильная адаптация: уменьшаем поля и шрифты при узком экране */
+@media (max-width: 700px) {
+    .content { padding: 12px; }
+    .card { padding: 12px; max-width: 100%; }
+    input[type="text"], input[type="number"] { width: 100%; font-size: 14px; padding: 8px; }
+    .table-wrapper td input { font-size: 12px; padding: 4px; }
+    button { padding: 6px 8px; min-width: 80px; font-size: 13px; }
+}
+/* Ошибки */
+.error-box {
+    background-color: #ffeaea;
+    color: #b42b2b;
+    border: 1px solid #ffbdbd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+/* Добавьте в конец файла style.css */
+.highlighted {
+    background-color: beige !important;
+    font-weight: bold;
+    border: 2px solid #d4a574 !important;
+}
+
+/* ===== TASK 7 SPECIFIC STYLES ===== */
+
+/* Test Results */
+.test-result {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #ffedd7;
+}
+.test-passed {
+    background-color: #f0f9eb;
+    border-color: #c3e6cb;
+}
+.test-failed {
+    background-color: #fde8e8;
+    border-color: #f5c6cb;
+}
+
+/* Execution Path */
+.execution-path {
+    background-color: #fdf8f3;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    border: 1px solid #ffedd7;
+}
+.path-step {
+    margin: 4px 0;
+    font-family: monospace;
+    font-size: 14px;
+    color: #a34f3f;
+}
+
+/* Complexity Info */
+.complexity-info {
+    background-color: #fdf8f3;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+    border: 1px solid #ffedd7;
+    text-align: center;
+}
+
+/* Paths Information */
+.paths-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.path-item {
+    background: #fdf8f3;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #e66e40;
+}
+
+/* Test Statistics */
+.test-stats {
+    background: #fdf8f3;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px solid #ffedd7;
+}
+.passed-count {
+    color: #28a745;
+    font-weight: bold;
+}
+.failed-count {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Result Box */
+.result-box {
+    background: #f0f9eb;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid #c3e6cb;
+}
+
+/* Form Groups */
+.form-group {
+    margin: 15px 0;
+    width: 100%;
+    text-align: center;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #a34f3f;
+    font-weight: bold;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #e66e40;
+    color: #fdf5ec;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 10px 0;
+}
+.btn-primary:hover {
+    background: #cd5d34;
+    color: #fdf5ec;
+}
+
+/* Details/Summary Styling */
+details {
+    margin: 10px 0;
+}
+summary {
+    cursor: pointer;
+    color: #e66e40;
+    font-weight: bold;
+    padding: 5px;
+}
+summary:hover {
+    color: #cd5d34;
+}
+
+/* Active link in sidebar */
+.sidebar ul li a.active {
+    color: #fbddbb;
+    font-weight: bold;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Task 7</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}" class="active">Task : 7</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <!-- Информация о цикломатической сложности -->
+    <div class="card">
+        <h2>Cyclomatic Complexity Analysis</h2>
+        <div class="complexity-info">
+            <p><strong>V(G) = <span th:text="${cyclomaticComplexity}">4</span></strong></p>
+            <p><em>Calculated using: V(G) = E - N + 2 = 14 - 12 + 2 = 4</em></p>
+            <p>Number of independent paths: 4</p>
+        </div>
+    </div>
+
+    <!-- Форма для ручного тестирования -->
+    <div class="card">
+        <h2>Manual Binary Search Test</h2>
+        <form method="post" action="/task7/search">
+            <div class="form-group">
+                <label>Array (comma or space separated):</label>
+                <input type="text" name="arrayInput" placeholder="e.g., 1,2,3,4,5"
+                       th:value="${arrayInput != null} ? ${arrayInput} : ''" required>
+            </div>
+            <div class="form-group">
+                <label>Target value:</label>
+                <input type="number" name="target" placeholder="e.g., 3"
+                       th:value="${target != null} ? ${target} : ''" required>
+            </div>
+            <button type="submit">Run Binary Search</button>
+        </form>
+
+        <!-- Результат поиска -->
+        <div th:if="${searchResult != null}" class="result-box">
+            <h3>Search Result:</h3>
+            <p><strong>Result:</strong> <span th:text="${searchResult.result}"></span></p>
+            <p><strong>Path Type:</strong> <span th:text="${searchResult.pathType}"></span></p>
+
+            <div class="execution-path">
+                <h4>Execution Path:</h4>
+                <div th:each="step : ${searchResult.executionPath}" class="path-step">
+                    <span th:text="${step}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ошибка -->
+        <div th:if="${error != null}" class="error-box">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+
+
+    <!-- Информация о независимых путях -->
+    <div class="card">
+        <h2>Independent Paths</h2>
+        <div class="paths-info">
+            <div class="path-item">
+                <h4>Path 1: 1-2-3-11-12</h4>
+                <p><strong>Description:</strong> Empty array or immediate exit</p>
+                <p><strong>Example:</strong> arr = [], target = 5 → returns -1</p>
+            </div>
+            <div class="path-item">
+                <h4>Path 2: 1-2-3-4-5-6-12</h4>
+                <p><strong>Description:</strong> Immediate success in middle</p>
+                <p><strong>Example:</strong> arr = [1,2,3,4,5], target = 3 → returns 2</p>
+            </div>
+            <div class="path-item">
+                <h4>Path 3: 1-2-3-4-5-7-8-10-3-11-12</h4>
+                <p><strong>Description:</strong> Right search → not found</p>
+                <p><strong>Example:</strong> arr = [1,3,5,7,9], target = 8 → returns -1</p>
+            </div>
+            <div class="path-item">
+                <h4>Path 4: 1-2-3-4-5-7-9-10-3-4-5-6-12</h4>
+                <p><strong>Description:</strong> Left search → found</p>
+                <p><strong>Example:</strong> arr = [1,2,3,4,5], target = 1 → returns 0</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

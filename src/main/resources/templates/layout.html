@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab Works</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}">Task : 7</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <div class="card">
+    <h2>Software Testing Approaches<br></h2>
+    <p>Welcome! Choose Tasks in sidebar on left</p>
+        <img th:src="@{/img/lasagna.jpg}" alt="Lasagna" style="max-width: 300px; border-radius: 8px;">
+    </div>
+</div>
+</body>
+</html>

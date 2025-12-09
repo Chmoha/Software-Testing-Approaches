@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Task 9</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Laboratory Works</h3>
+    <ul>
+        <li><a th:href="@{/}">Main page</a></li>
+        <li><a th:href="@{/task1}">Task : 1</a></li>
+        <li><a th:href="@{/task2}">Task : 2</a></li>
+        <li><a th:href="@{/task3}">Task : 3</a></li>
+        <li><a th:href="@{/task4}">Task : 4</a></li>
+        <li><a th:href="@{/task6}">Task : 6</a></li>
+        <li><a th:href="@{/task6_2}">Task : 6.2</a></li>
+        <li><a th:href="@{/task7}">Task : 7</a></li>
+        <li><a th:href="@{/task9}">Task : 9</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <!-- Информация о профилировании -->
+    <div class="card">
+        <h2>Performance Profiling Analysis</h2>
+        <div class="complexity-info">
+            <p><strong>Profiling Types:</strong> CPU Usage, Memory Allocation, Execution Time</p>
+            <p><em>Purpose: Identify performance bottlenecks and optimize code</em></p>
+            <p>Tools: IntelliJ IDEA Profiler, Visual Studio Diagnostic Tools</p>
+        </div>
+    </div>
+
+    <!-- Тестирование Fibonacci -->
+    <div class="card">
+        <h2>Fibonacci Performance Test</h2>
+
+        <!-- Быстрый Fibonacci -->
+        <div class="form-group">
+            <h3>Fast Fibonacci (Iterative)</h3>
+            <form method="post" th:action="@{/task9/fibonacci/fast}">
+                <label>Input n (0-100):</label>
+                <input type="number" name="n" min="0" max="100"
+                       th:value="${fastFibInput != null} ? ${fastFibInput} : '40'" required>
+                <button type="submit">Run Fast Fibonacci</button>
+            </form>
+
+            <div th:if="${fastFibResult != null}" class="result-box">
+                <p><strong>Result:</strong> <span th:text="${fastFibResult}"></span></p>
+                <p><strong>Execution Time:</strong> <span th:text="${fastFibTime}"></span> ms</p>
+            </div>
+            <div th:if="${fastFibError != null}" class="error-box">
+                <p th:text="${fastFibError}"></p>
+            </div>
+        </div>
+
+        <!-- Медленный Fibonacci -->
+        <div class="form-group">
+            <h3>Slow Fibonacci (Recursive - for Profiling)</h3>
+            <form method="post" th:action="@{/task9/fibonacci/slow}">
+                <label>Input n (recommended: 30-40):</label>
+                <input type="number" name="n" min="0" max="45"
+                       th:value="${slowFibInput != null} ? ${slowFibInput} : '35'" required>
+                <button type="submit">Run Slow Fibonacci</button>
+            </form>
+
+            <div th:if="${slowFibResult != null}" class="result-box">
+                <p><strong>Result:</strong> <span th:text="${slowFibResult}"></span></p>
+                <p><strong>Execution Time:</strong> <span th:text="${slowFibTime}"></span> ms</p>
+            </div>
+            <div th:if="${slowFibError != null}" class="error-box">
+                <p th:text="${slowFibError}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тестирование сортировки -->
+    <div class="card">
+        <h2>Sorting Performance Test</h2>
+
+        <!-- Ручная сортировка -->
+        <div class="form-group">
+            <h3>Manual Array Sorting</h3>
+            <form method="post" th:action="@{/task9/sort/inefficient}">
+                <label>Array (comma or space separated):</label>
+                <input type="text" name="arrayInput" placeholder="e.g., 5,3,8,1,2"
+                       th:value="${sortInput != null} ? ${sortInput} : ''" required>
+                <button type="submit">Run Bubble Sort</button>
+            </form>
+
+            <div th:if="${sortResult != null}" class="result-box">
+                <p><strong>Sorted Array:</strong> <span th:text="${sortResult}"></span></p>
+                <p><strong>Execution Time:</strong> <span th:text="${sortTime}"></span> ms</p>
+                <p><strong>Array Size:</strong> <span th:text="${arraySize}"></span> elements</p>
+            </div>
+            <div th:if="${sortError != null}" class="error-box">
+                <p th:text="${sortError}"></p>
+            </div>
+        </div>
+
+        <!-- Сортировка большого массива -->
+        <div class="form-group">
+            <h3>Large Array Sorting</h3>
+            <form method="post" th:action="@{/task9/sort/large}">
+                <label>Array Size:</label>
+                <input type="number" name="size" min="100" max="10000"
+                       th:value="${largeSortSize != null} ? ${largeSortSize} : '5000'" required>
+                <button type="submit">Generate and Sort Large Array</button>
+            </form>
+
+            <div th:if="${largeSortResult != null}" class="result-box">
+                <p><strong>Result:</strong> <span th:text="${largeSortResult}"></span></p>
+                <p><strong>Execution Time:</strong> <span th:text="${largeSortTime}"></span> ms</p>
+            </div>
+            <div th:if="${largeSortError != null}" class="error-box">
+                <p th:text="${largeSortError}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тестирование памяти -->
+    <div class="card">
+        <h2>Memory Usage Test</h2>
+        <form method="post" th:action="@{/task9/memory}">
+            <div class="form-group">
+                <label>Number of objects to create:</label>
+                <input type="number" name="count" min="1000" max="100000"
+                       th:value="${memoryCount != null} ? ${memoryCount} : '50000'" required>
+            </div>
+            <button type="submit">Run Memory Intensive Operation</button>
+        </form>
+
+        <div th:if="${memoryResult != null}" class="result-box">
+            <p><strong>Result:</strong> <span th:text="${memoryResult}"></span></p>
+            <p><strong>Execution Time:</strong> <span th:text="${memoryTime}"></span> ms</p>
+        </div>
+        <div th:if="${memoryError != null}" class="error-box">
+            <p th:text="${memoryError}"></p>
+        </div>
+    </div>
+
+    <!-- Комплексное профилирование -->
+    <div class="card">
+        <h2>Complete Profiling Test</h2>
+        <form method="post" th:action="@{/task9/run-all}">
+            <p>Run all performance tests simultaneously to identify bottlenecks:</p>
+            <button type="submit">Run All Performance Tests</button>
+        </form>
+
+        <div th:if="${profilingResult != null}" class="result-box">
+            <h3>Profiling Results:</h3>
+            <div class="execution-path">
+                <div class="path-step">
+                    <strong>Fibonacci Calculation:</strong>
+                    <span th:text="${profilingResult.fibonacciTime}"></span> ms
+                </div>
+                <div class="path-step">
+                    <strong>Array Sorting:</strong>
+                    <span th:text="${profilingResult.sortTime}"></span> ms
+                </div>
+                <div class="path-step">
+                    <strong>Memory Operation:</strong>
+                    <span th:text="${profilingResult.memoryTime}"></span> ms
+                </div>
+                <div class="path-step" style="font-weight: bold;">
+                    <strong>Total Execution Time:</strong>
+                    <span th:text="${profilingResult.totalTime}"></span> ms
+                </div>
+            </div>
+        </div>
+        <div th:if="${profilingError != null}" class="error-box">
+            <p th:text="${profilingError}"></p>
+        </div>
+    </div>
+
+    <!-- Информация о профилировании -->
+    <div class="card">
+        <h2>Profiling Information</h2>
+        <div class="paths-info">
+            <div class="path-item">
+                <h4>CPU Profiling</h4>
+                <p><strong>Purpose:</strong> Identify methods consuming most processor time</p>
+                <p><strong>Hotspots:</strong> Recursive Fibonacci, Bubble Sort algorithms</p>
+            </div>
+            <div class="path-item">
+                <h4>Memory Profiling</h4>
+                <p><strong>Purpose:</strong> Detect memory leaks and allocation patterns</p>
+                <p><strong>Focus:</strong> Object creation, string operations, collections</p>
+            </div>
+            <div class="path-item">
+                <h4>Performance Optimization</h4>
+                <p><strong>Goals:</strong> Reduce execution time and memory usage</p>
+                <p><strong>Techniques:</strong> Algorithm optimization, caching, efficient data structures</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
